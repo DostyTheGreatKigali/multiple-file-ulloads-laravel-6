@@ -1,124 +1,70 @@
+
 <html lang="en">
+    <head>
+      <title>Laravel Multiple File Upload Example</title>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    </head>
+    <body>
+      <div class="container">
+          @if (count($errors) > 0)
+          <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
 
-<head>
+            @if(session('success'))
+            <div class="alert alert-success">
+              {{ session('success') }}
+            </div>
+            @endif
 
-  <title>Laravel 6 Multiple File Upload Example</title>
-{{--
-  <script src="jquery/1.9.1/jquery.js"></script>
+        <h3 class="jumbotron">Laravel Multiple File Upload</h3>
+    <form method="post" action="{{url('file')}}" enctype="multipart/form-data">
+      {{csrf_field()}}
 
-  <link rel="stylesheet" href="3.3.6/css/bootstrap.min.css"> --}}
+            <div class="input-group control-group increment" >
+              <input type="file" name="filenames[]" class="form-control">
+              <div class="input-group-btn">
+                <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+              </div>
+            </div>
+            <div class="clone hide">
+              <div class="control-group input-group" style="margin-top:10px">
+                <input type="file" name="filenames[]" class="form-control">
+                <div class="input-group-btn">
+                  <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                </div>
+              </div>
+            </div>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+            <button type="submit" class="btn btn-primary" style="margin-top:10px">Submit</button>
 
-</head>
-
-<body>
-
-
-<div class="container lst">
-
-
-@if (count($errors) > 0)
-
-<div class="alert alert-danger">
-
-    <strong>Sorry!</strong> There were more problems with your HTML input.<br><br>
-
-    <ul>
-
-      @foreach ($errors->all() as $error)
-
-          <li>{{ $error }}</li>
-
-      @endforeach
-
-    </ul>
-
-</div>
-
-@endif
-
-
-@if(session('success'))
-
-<div class="alert alert-success">
-
-  {{ session('success') }}
-
-</div>
-
-@endif
-
-
-<h3 class="well">Laravel 6 Multiple File Upload</h3>
-
-<form method="post" action="{{url('file')}}" enctype="multipart/form-data">
-
-  {{csrf_field()}}
-
-
-    <div class="input-group hdtuto control-group lst increment" >
-
-      <input type="file" name="filenames[]" class="myfrm form-control">
-
-      <div class="input-group-btn">
-
-        <button class="btn btn-success" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>Add</button>
-
+      </form>
       </div>
 
-    </div>
 
-    <div class="clone hide">
-
-      <div class="hdtuto control-group lst input-group" style="margin-top:10px">
-
-        <input type="file" name="filenames[]" class="myfrm form-control">
-
-        <div class="input-group-btn">
-
-          <button class="btn btn-danger" type="button"><i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>
-
-        </div>
-
-      </div>
-
-    </div>
+    <script type="text/javascript">
 
 
-    <button type="submit" class="btn btn-success" style="margin-top:10px">Submit</button>
+        $(document).ready(function() {
 
+          $(".btn-success").click(function(){
+              var html = $(".clone").html();
+              $(".increment").after(html);
+          });
 
-</form>
+          $("body").on("click",".btn-danger",function(){
+              $(this).parents(".control-group").remove();
+          });
 
-</div>
+        });
 
-
-<script type="text/javascript">
-
-    $(document).ready(function() {
-
-      $(".btn-success").click(function(){
-
-          var lsthmtl = $(".clone").html();
-
-          $(".increment").after(lsthmtl);
-
-      });
-
-      $("body").on("click",".btn-danger",function(){
-
-          $(this).parents(".hdtuto control-group lst").remove();
-
-      });
-
-    });
-
-</script>
-
-
-</body>
-
-</html>
+    </script>
+    </body>
+    </html>
