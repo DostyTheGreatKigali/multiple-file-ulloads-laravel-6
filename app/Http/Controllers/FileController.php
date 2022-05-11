@@ -46,6 +46,8 @@ class FileController extends Controller
 
     {
 
+        dd($request);
+
 
         $this->validate($request, [
 
@@ -78,6 +80,7 @@ class FileController extends Controller
          $file= new File();
 
          $file->filenames=json_encode($data);
+         dd($file);
 
          $file->save();
 
